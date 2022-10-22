@@ -48,9 +48,89 @@ function App() {
 
   console.log(sayMyName("limber"))
   console.log(sayMyName2("limber mc"))
-  console.log(sayMyName3("limber mcx"))*/
+  console.log(sayMyName3("limber mcx"))
 
+  //----------CLASS----------
+  class Animal{
+    eat = () => console.log('I am eating');
+  }
+  class Dog extends Animal{
+    weight = 20;
+    age = 8;
+    bark = () => console.log('bark bark bark')
+  }
+
+  const puppy = new Dog()
+  puppy.bark()
+  console.log(puppy.bark());
+  console.log(puppy.eat());
+
+  //----------SPREAD OPERATOR----------
+  //...
+  var oldArr = [1, 3, 5]
+  var newArr = [...oldArr, 2, 4]
+  console.log(newArr);
+
+  var oldObj = {
+    name: "Peter",
+    height: 175
+  }
+
+  var newObj = {
+    ...oldObj, age:18
+  }
+  console.log(newObj);
+
+  const showValues = (...args) =>{
+    //console.log(...args);
+    for (let i = 0; i < args.length; i++) {
+      console.log(args[i]);
+      
+    }
+  }
+
+  console.log(showValues("apple", "orange", "banana"));
+
+  //----------DESTRUCTURING----------
+  var person = {
+    firstName: "Alan",
+    lastName: "Smith",
+    age: 50,
+    eyeColor: "blue"
+  }
+
+  const {firstName, age} = person
+  console.log(firstName);
+  console.log(age);
+  var [a,b] = [1,2]
+  console.log(a);
+  var [a,b,...remain] = [1,2,3, 5,6,7, 5,6,7, 5,6,7]
+  console.log(...remain);
+
+  var [,,c] = [1,2,3]
+  console.log(c)
+
+  //----------PRIMITIVE VS REFERENCE----------
+  //primitive :the value is stored with assign-by-value 
+  //reference :the value is stored with assign-by-refence
   
+  var name = "Sam"
+  var namecopy = name
+  console.log('name', name);
+  console.log('namecopy', namecopy);
+  name = "Mary"
+  console.log('name', name);
+  console.log('namecopy', namecopy);
+
+  const user = {
+    name: "Mike"
+  }
+  const usercopy = {...user}
+  console.log('user', user);
+  console.log('usercopy', usercopy);
+  user.name = "Mary"
+  console.log('user', user);
+  console.log('usercopy', usercopy);*/
 
   return (
     <div className="App">
