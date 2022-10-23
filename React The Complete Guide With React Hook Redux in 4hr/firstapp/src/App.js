@@ -130,7 +130,37 @@ function App() {
   console.log('usercopy', usercopy);
   user.name = "Mary"
   console.log('user', user);
-  console.log('usercopy', usercopy);*/
+  console.log('usercopy', usercopy);
+
+  //----------ARRAY FUNCTION----------
+
+  var numbers = [1, 2, 3]
+  const plus3 = numbers.map(num=>num+3)
+
+  console.log(plus3);
+
+  const plus4function = num => num+4
+  const plus4 = numbers.map(plus4function)
+
+  console.log(plus4);*/
+
+  //----------FOR IN \ FOR OF----------
+  const fruitArray = ["apple", "orange", "banana"]
+
+  for (let value of fruitArray) {
+    console.log(value);
+  }
+
+  const fruitsObject = {
+    apple: 13,
+    orange: 17,
+    banana: 15
+  }
+
+  for (let key in fruitsObject) {
+   console.log(key);
+   console.log(fruitsObject[key]);
+  }
 
   return (
     <div className="App">
