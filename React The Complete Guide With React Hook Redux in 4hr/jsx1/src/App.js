@@ -7,7 +7,7 @@ function App() {
   //Value need to add single quote
   //Semi colon --> comma
   return (
-    <div className="outerdiv">
+    <div style={{padding: '70px 0', backgroundColor: 'blue'}}>
       <div className="innerdiv">
         This is a green box
       </div>
