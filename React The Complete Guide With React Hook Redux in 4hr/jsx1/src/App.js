@@ -3,13 +3,24 @@ import './Custom.css'
 
 function App() {
 
-  //Background-color -> backgroundColor, border-color -> borderColor
-  //Value need to add single quote
-  //Semi colon --> comma
+  const styles = {
+    outerDiv:{padding: '70px 0', backgroundColor: 'blue'},
+    innerDiv:{
+      textAlign: "center",
+      margin: "auto",
+      width: "60%",
+      border: "3px solid black",
+      backgroundColor: "#73AD21",
+      padding: "70px 0"
+    }
+  }
+
+  const sometext = 'sometext'
+  const somediv = <div style={{backgroundColor: 'white'}}>somediv</div>
   return (
-    <div style={{padding: '70px 0', backgroundColor: 'blue'}}>
-      <div className="innerdiv">
-        This is a green box
+    <div style={styles.outerDiv}>
+      <div style={styles.innerDiv}>
+        {somediv}
       </div>
     </div>
   );
