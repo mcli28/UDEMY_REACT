@@ -45,6 +45,12 @@ function App() {
     setCards(cards_copy)
   }
 
+  const buttonStyle = {
+    backgroundColor: null
+  }
+  if (cards.length<3) buttonStyle.backgroundColor = 'lightpink'
+  if (cards.length<2) buttonStyle.backgroundColor = 'red'
+
   const cardsMarkup = showCard && (
       cards.map((card, index) => <Card
         avatar={card.avatar} 
@@ -58,9 +64,8 @@ function App() {
   
   return (
     <div className="App">
-      <button className='button' onClick={toggleShowCard}>Toggle show/hide</button>
+      <button className='button' style={buttonStyle} onClick={toggleShowCard}>Toggle show/hide</button>
       {cardsMarkup}
-     
     </div>
   );
 }
