@@ -1,7 +1,30 @@
 import React, {useState} from 'react'
 import './App.css'
 import Card from './Card';
-import { faker } from '@faker-js/faker';
+import styled, { ThemeProvider, css } from 'styled-components'
+//import { faker } from '@faker-js/faker';
+
+const theme = {
+  primary: '#4CAF50',
+  mango: 'yellow'
+}
+
+const Button = styled.button`
+  border: none;
+  ${props=>
+    props.color && css`
+      background-color: ${props => props.length > 2 ? props.theme[props.color]: props.length < 2 ? 'red' : 'pink'};
+      color: ${props=>props.length<=1?'white':'black'};
+  `}
+  font-weight: ${props=>props.length<=1?'bold':'normal'};
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+`
 
 function App() {
   const [cards, setCards] = useState([
@@ -36,7 +59,7 @@ function App() {
 
   const changeNameHandler = (event,id) => {
     //1. which card
-    const cardIndex = cards.findIndex(card=>card.id == id)
+    const cardIndex = cards.findIndex(card=>card.id === id)
     //2. make a copy of the cards
     const cards_copy = [...cards]
     //3. change the name of the specific card
@@ -64,10 +87,13 @@ function App() {
     )
   
   return (
-    <div className="App">
-      <button className={classes.join(' ')} onClick={toggleShowCard}>Toggle show/hide</button>
-      {cardsMarkup}
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <Button color="mango" length={cards.length}>Toggle</Button>
+        <button className={classes.join(' ')} onClick={toggleShowCard}>Toggle show/hide</button>
+        {cardsMarkup}
+      </div>
+    </ThemeProvider>
   );
 }
 
