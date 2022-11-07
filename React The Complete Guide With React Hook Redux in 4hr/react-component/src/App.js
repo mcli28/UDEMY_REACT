@@ -45,11 +45,12 @@ function App() {
     setCards(cards_copy)
   }
 
-  const buttonStyle = {
-    backgroundColor: null
-  }
-  if (cards.length<3) buttonStyle.backgroundColor = 'lightpink'
-  if (cards.length<2) buttonStyle.backgroundColor = 'red'
+  //const buttonStyle = {
+  //  backgroundColor: null
+  //}
+  const classes = ['button']
+  if (cards.length<3) classes.push('pink')
+  if (cards.length<2) classes.push('red')
 
   const cardsMarkup = showCard && (
       cards.map((card, index) => <Card
@@ -64,7 +65,7 @@ function App() {
   
   return (
     <div className="App">
-      <button className='button' style={buttonStyle} onClick={toggleShowCard}>Toggle show/hide</button>
+      <button className={classes.join(' ')} onClick={toggleShowCard}>Toggle show/hide</button>
       {cardsMarkup}
     </div>
   );
