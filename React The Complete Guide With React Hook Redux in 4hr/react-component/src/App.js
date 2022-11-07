@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import './App.css'
 import Card from './Card';
 import { ThemeProvider } from 'styled-components'
@@ -11,9 +11,6 @@ const theme = {
 }
 
 function App() {
-  useEffect(()=>{
-    alert('App js useEffect')
-  },[])
   const [cards, setCards] = useState([
     {
       id: '12',

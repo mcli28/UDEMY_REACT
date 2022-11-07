@@ -1,10 +1,30 @@
 import React from 'react'
+import { useEffect } from 'react';
+import { useState } from 'react';
 import './App.css';
 
 
 const Card = props => {
+  const [x, setX] = useState(0)
+  const [y, setY] = useState(0)
+
+  const recordMouse = e => {
+    setX(e.clientX)
+    setY(e.clientY)
+  }
+  console.log('mouse event')
+  useEffect(() => {
+    window.addEventListener('mousemove', recordMouse)
+  
+    return () => {
+      console.log('Cardjs cleanup')
+      window.removeEventListener('mousemove', recordMouse)
+    }
+  }, [])
+  
   return (
     <div className="card">
+        <p>x position: {x}</p><p>y position: {y}</p>
         <img src={props.avatar} alt="Avatar" style={{width: '100%'}}/>
         <div className="container">
             <h4><b>{props.name}</b></h4> 
