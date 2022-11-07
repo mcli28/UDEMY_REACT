@@ -11,8 +11,8 @@ const theme = {
 }
 
 class App extends Component {
-
   constructor(props){
+    console.log('App js constructor')
     super(props)
     this.state={
       cards:[
@@ -38,6 +38,12 @@ class App extends Component {
       showCard:true
     }
   }
+
+  static getDerivedStateFromProps(props, state){
+    console.log('App js getDerivedStateFromProps', props);
+    return state
+  }
+
   toggleShowCard = () => this.setState({showCard:!this.state.showCard})
   deleteCardHandler = (cardIndex) => {
     const cards_copy = [...this.state.cards]
@@ -56,10 +62,14 @@ class App extends Component {
     this.setState({cards:cards_copy})
   }
 
-  //const buttonStyle = {
-  //  backgroundColor: null
-  //}
+  componentDidMount(){
+    console.log('App js componentDidMount')
+  }
   render(){
+    if (this.state.showCard === false) {
+      return <div>nothing</div>
+    }
+    console.log('App js render');
     const classes = ['button']
     if (this.state.cards.length<3) classes.push('pink')
     if (this.state.cards.length<2) classes.push('red')
