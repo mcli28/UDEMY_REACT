@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link, NavLink } from 'react-router-dom'
 
 const Navbar = () => {
   return (
@@ -8,26 +9,26 @@ const Navbar = () => {
             <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul className="navbar-nav">
-            <li className="nav-item active">
-                <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
-            </li>
-            <li className="nav-item">
-                <a className="nav-link" href="/about">About</a>
-            </li>
-            <li className="nav-item">
-                <a className="nav-link" href="/contact">contact</a>
-            </li>
-            <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                Dropdown link
-                </a>
-                <div className="dropdown-menu">
-                <a className="dropdown-item" href="#">Action</a>
-                <a className="dropdown-item" href="#">Another action</a>
-                <a className="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
+            <ul className="nav nav-tabs">
+                <li className="nav-item">
+                    <NavLink className="nav-link" to="/">Home <span className="sr-only">(current)</span></NavLink>
+                </li>
+                <li className="nav-item">
+                    <NavLink className="nav-link" to="/about">About</NavLink>
+                </li>
+                <li className="nav-item">
+                    <NavLink className="nav-link" to="/contact">contact</NavLink>
+                </li>
+                <li className="nav-item dropdown">
+                    <a className="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                    Dropdown link
+                    </a>
+                    <div className="dropdown-menu">
+                    <a className="dropdown-item" href="#">Action</a>
+                    <a className="dropdown-item" href="#">Another action</a>
+                    <a className="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
