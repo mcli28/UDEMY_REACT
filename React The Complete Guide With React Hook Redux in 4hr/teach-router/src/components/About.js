@@ -1,14 +1,15 @@
 import React from 'react'
+import Colorful from '../hoc/Colorful'
 import {faker} from '@faker-js/faker'
 
 const About = () => {
   return (
     <div className='container'>
-      <p>About</p>
+      <h4 className='center'>About</h4>
       <p>{`${faker.lorem.paragraph()}`}</p>
     </div>
     
   )
 }
 
-export default About
+export default Colorful(About)

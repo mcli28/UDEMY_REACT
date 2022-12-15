@@ -1,7 +1,11 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, redirect } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = (props) => {
+    //console.log('Navbar', props);
+    //setTimeout(() => {
+    //  return redirect("/about")
+    //}, 1000)
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <a className="navbar-brand" href="#">Navbar</a>
@@ -18,16 +22,6 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item">
                     <NavLink className="nav-link" to="/contact">contact</NavLink>
-                </li>
-                <li className="nav-item dropdown">
-                    <a className="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                    Dropdown link
-                    </a>
-                    <div className="dropdown-menu">
-                    <a className="dropdown-item" href="#">Action</a>
-                    <a className="dropdown-item" href="#">Another action</a>
-                    <a className="dropdown-item" href="#">Something else here</a>
-                    </div>
                 </li>
             </ul>
         </div>
