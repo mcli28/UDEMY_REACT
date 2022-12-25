@@ -1,11 +1,23 @@
 import React from 'react'
 import { Link, NavLink, redirect } from 'react-router-dom'
-
+import auth from '../auth'
 const Navbar = (props) => {
     //console.log('Navbar', props);
     //setTimeout(() => {
     //  return redirect("/about")
     //}, 1000)
+    const authHandler = () => {
+        if(auth.isAuthenticated()){
+            auth.logout(() => {
+                props.history.push('/')
+            })
+        } else {
+            auth.login(() => {
+                props.history.push('/about')
+            })
+        }
+    }
+    const authText = auth.isAuthenticated() ? 'logout' : 'login'
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <a className="navbar-brand" href="#">Navbar</a>
@@ -24,6 +36,7 @@ const Navbar = (props) => {
                     <NavLink className="nav-link" to="/contact">contact</NavLink>
                 </li>
             </ul>
+            <button className='btn btn-success navbar-btn' onClick={authHandler}>{authText}</button>
         </div>
     </nav>
   )

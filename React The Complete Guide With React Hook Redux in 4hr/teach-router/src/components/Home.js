@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 //import {faker} from '@faker-js/faker'
 const Home = () => {
@@ -14,7 +15,9 @@ const Home = () => {
     posts.map(post => (
       <div className ="card shadow p-3 mb-5 bg-white " key={post.id}>
         <div className ="card-body">
-          <h5 className ="card-title">{post.title}</h5>
+          <Link to={`/posts/${post.id}`}>
+            <h5 className ="card-title">{post.title}</h5>
+          </Link>
           <p className ="card-text">{post.body}</p>
         </div>
       </div>
