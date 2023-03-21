@@ -1,19 +1,29 @@
-
 //import { doc, setDoc, collection, addDoc, getFirestore } from "firebase/firestore";
-
-import { getFirestore, collection, addDoc} from 'firebase/firestore/lite';
-
+import { collection, doc, setDoc} from 'firebase/firestore/lite';
 //import { getFirestore, collection, getDocs, doc, setDoc } from 'firebase/firestore/lite';
+import React, { useState, useEffect } from 'react';
 import { db } from "../../config/fbconfig";
+import Home from '../../components/home/Home';
+import App from '../../App';
 
-export const addNote = (note) => {
+function Ren() {
+    console.log("en la funcion");
+    /*useEffect(() => {
+        console.log("en el use");
+        //<Home/>
+    });*/
+    return <Home/>
+}
 
-    console.log(note);
-    console.log(note.title);
-    console.log(note.content);
+
+
+export const NoteAction = (note) => {
+
     async function addNotes(db) {
-        const noteref = collection(db, "notes")
-        const docRef = await addDoc(noteref, {
+        const noteref = doc(collection(db, "notes"))
+
+        await setDoc(noteref, {
+            id: noteref.id,
             title: note.title,
             content: note.content,
             favorite:false,
@@ -21,46 +31,9 @@ export const addNote = (note) => {
         });
     }
     
-    let addnotes = addNotes(db)
-    console.log(addnotes);
-    return (dispatch, getState, {getFirestore}) => {
-        //const firestore = getFirestore()
-        //firestore.collection('notes')
-        //.add({
-        //    title: note.title,
-        //    content: note.content,
-        //    favorite:false,
-        //    createdAt: new Date()
-        //})
-        //.then(() =>{
-        //    console.log('add the note successfully');
-        //})
-        //.catch(err)
-        
-        /*console.log(note);
-        console.log(note.title);
-        console.log(note.content);
-        let id;
-        async function addNote(db) {
-            /*const docref = doc(db, "notes", id+1) 
-            await setDoc(docref, {
-                title: note.title,
-                content: note.content,
-                favorite:false,
-                createdAt: new Date()
-            });/////
-            const noteref = collection(db, "notes")
-            const docRef = await addDoc(noteref, {
-                title: note.title,
-                content: note.content,
-                favorite:false,
-                createdAt: new Date()
-              });
-        }
-
-        let addnote = addNote(db)*/
-        //const cityRef = doc(db, 'notes');
-        //setDoc(cityRef, { content: note.content }, { title: note.title });
-    }
-    
+    addNotes(db)
+    Ren()
+    /*return(
+        <Home/>
+    )*/    
 }

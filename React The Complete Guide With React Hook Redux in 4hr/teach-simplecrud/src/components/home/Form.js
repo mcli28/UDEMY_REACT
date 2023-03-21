@@ -1,6 +1,6 @@
 import React from 'react'
 import useInput from '../../customhook/useInput'
-import { addNote } from '../../store/actions/noteAction'
+import { NoteAction } from '../../store/actions/noteAction'
 import { useDispatch } from 'react-redux'
 
 const Form = () => {
@@ -9,7 +9,7 @@ const Form = () => {
   const dispatch = useDispatch()
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(addNote({title, content}))
+    dispatch(NoteAction({title, content}))
     resetTitle()
     resetContent()
   }

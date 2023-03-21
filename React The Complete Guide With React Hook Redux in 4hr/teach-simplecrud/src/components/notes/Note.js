@@ -2,7 +2,7 @@ import React from 'react'
 
 const Note = ({note}) => {
     console.log("note");
-    console.log(note);
+    //console.log(note.id);
   return (
     <div className='note white'>
       <div className='right-align'>
