@@ -6,9 +6,9 @@ const PostSnippet = (props) => {
   return (
     <div className='post_snippet_container'>
       <Card 
+        id={props.id}
         title={props.title} 
         content={props.content}
-        id={props.id}
         //extra={<Link to='/post/${props.id}'>Read full article</Link>}
       ></Card>
     </div>

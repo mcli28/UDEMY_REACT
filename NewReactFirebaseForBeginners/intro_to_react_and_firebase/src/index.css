@@ -19,4 +19,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.app_container {
+  width:1200px;
+  margin: 0px auto;
+  margin-top: 20px;
+}
+.post_inputs_container{
+  margin-top:20px;
+}
+.post_input_container{
+  margin-top:20px;
+}
 */

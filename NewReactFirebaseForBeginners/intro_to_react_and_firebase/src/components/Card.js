@@ -3,7 +3,6 @@ import {Link} from "@reach/router"
 //import {Link} from "react-router-dom"
 
 const Card = (props) => {
-    console.log(props);
   return (
     <div className="card">
         <header className="card-header">
