@@ -1,21 +1,40 @@
 import React, {useState, useEffect} from 'react'
 import PageHeader from './PageHeader'
-//import {collection, doc, setDoc} from 'firebase/firestore/lite';
-//import db from '../firebase'
-import {useNavigate} from "react-router-dom";
+import db from '../firebase'
+import {useNavigate, useParams} from "react-router-dom";
+import {collection, doc, setDoc, getDoc} from 'firebase/firestore/lite';
 
-const CreatePost = (props) => {
-  
+const UpdatePost = (props) => {
+    
   let navigate = useNavigate()
-
-  /*const [title, setTitle] = useState('')
+  const {id} = useParams()
+  const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-
   const onTitleChange = (event) => setTitle(event.target.value)
   const onContentChange = (event) => setContent(event.target.value)
 
-  const onCreatePost = () => {
-    async function addpost(db) {
+  useEffect(() => {
+    async function getPost(db) {
+      const postRef = doc(db, 'posts', id);
+      const postSnapshot = await getDoc(postRef)
+        .then(doc => {
+          console.log(doc);
+          let {content, title} = doc.data()
+          setTitle(title)
+          setContent(content)
+        })
+    }
+
+    getPost(db)
+
+  },[])
+
+  /*const onTitleChange = (event) => setTitle(event.target.value)
+  const onContentChange = (event) => setContent(event.target.value)
+
+  const onUpdatePost = () => {
+    console.log("update")
+    async function editpost(db) {
         const postref = doc(collection(db, "posts"))
 
         await setDoc(postref, {
@@ -26,31 +45,28 @@ const CreatePost = (props) => {
         
       }
       
-      addpost(db).then(function (doc) {
-        console.log("adicionado");
+      editpost(db).then(function (doc) {
+        console.log("Editado");
         setTitle('')
         setContent('')
-        //navigate("/posts")
+        navigate("/posts")
       })
   }*/
-  
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
 
-  const onTitleChange = (event) => setTitle(event.target.value)
-  const onContentChange = (event) => setContent(event.target.value)
+ 
   
-  const onCreatePost = () => {
+  const onUpdatePost = () => {
     console.log(props)
-    props.create(title, content)
+    props.update(title, content)
     navigate("/posts")
 
   }
-
+  
+  
   return (
     <div className="create_post_container">
       <section className='section'>
-        <PageHeader title="Create Post" ></PageHeader>
+        <PageHeader title="Update Post" ></PageHeader>
       </section>
 
       <section className='section'>
@@ -70,8 +86,7 @@ const CreatePost = (props) => {
               </div>
             </div>
 
-            <button className="button is-primary is-medium"
-             onClick={onCreatePost}>Create Post</button>
+            <button className="button is-primary is-medium" onClick={onUpdatePost}>Edit Post</button>
 
         </div>
       </section>
@@ -79,4 +94,4 @@ const CreatePost = (props) => {
   )
 }
 
-export default CreatePost
+export default UpdatePost

@@ -1,14 +1,12 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState, useEffect}  from 'react'
 import PostSnippet from './PostSnippet'
 import PageHeader from './PageHeader'
-//import api from '../mock_api'
 import _ from 'lodash'
-import {collection, getDocs} from 'firebase/firestore/lite';
-import db from '../firebase'
+//import { BrowserRouter as Router, Switch, Route, Routes, useNavigate, Navigate, redirect, withRouter } from 'react-router-dom';
 
 const Posts = (props) => {
 
-  const [posts, setPosts] = useState([])
+  /*const [posts, setPosts] = useState([])
 
   useEffect(() => {
     
@@ -27,29 +25,60 @@ const Posts = (props) => {
     }
     getPosts(db)
 
-  }, [])
+  }, [])*/
+
   return (
     <div className='column'>
         <div className='page_header_container'>
           <PageHeader title="Posts"></PageHeader>
         </div>
-        <div className='articles_container'>
-          {console.log(posts)};
-          {
-            _.map(posts, (article, idx) => {
-              return (
-                <PostSnippet 
-                  key={idx} 
-                  id={article.id} 
-                  title={article.title} 
-                  content={article.content.substring(1, 1000)}
-                />
-              )
-            })
-          }               
-        </div>
+        <section className='section has-background-grey-lighter'>
+            {
+              _.map(props.posts, (article, idx) => {
+                return (
+                  <PostSnippet 
+                    key={idx} 
+                    id={article.id} 
+                    title={_.capitalize(article.title)} 
+                    content={article.content.substring(1, 1000)}
+                  />
+                )
+              })
+            }               
+        </section>
     </div>
   )
 }
+
+
+/*class Posts extends Component {
+
+  renderItems(){
+
+    return _.map(this.props.items, (article, idx) => {
+      return (
+        <PostSnippet 
+          key={idx} 
+          id={article.id} 
+          title={_.capitalize(article.title)} 
+          content={article.content.substring(1, 1000)}
+        />
+      )
+    })   
+  }
+
+  render(){
+    return (
+      <div className='column'>
+          <div className='page_header_container'>
+            <PageHeader title="Posts"></PageHeader>
+          </div>
+          <section className='section has-background-grey-lighter'>
+            {this.renderItems()}
+          </section>
+      </div>
+    )
+  }
+}*/
 
 export default Posts

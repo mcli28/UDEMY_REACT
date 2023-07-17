@@ -1,6 +1,5 @@
 import React from 'react'
 import Card from './Card'
-//import {Link} from "@reach/router"
 
 const PostSnippet = (props) => {
   return (
@@ -9,7 +8,6 @@ const PostSnippet = (props) => {
         id={props.id}
         title={props.title} 
         content={props.content}
-        //extra={<Link to='/post/${props.id}'>Read full article</Link>}
       ></Card>
     </div>
   )

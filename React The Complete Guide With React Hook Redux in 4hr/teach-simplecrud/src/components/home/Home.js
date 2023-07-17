@@ -3,8 +3,11 @@ import Form from './Form'
 import {collection, getDocs} from 'firebase/firestore/lite';
 import {db} from '../../config/fbconfig'
 import NotesList from '../notes/NotesList';
+import {useNavigate} from "react-router-dom";
+
 
 const Home = () => {
+  let navigate = useNavigate()
   let notitasArr = []; 
   async function getNotes(db) {
     const notesCol = collection(db, 'notes');
@@ -12,11 +15,13 @@ const Home = () => {
     noteSnapshot.forEach((doc) => {
       notitasArr.push(doc.data())    
     })
-    //const noteList = noteSnapshot.docs.map(doc => doc.data());
-    //return noteList;
+
     return notitasArr;
   }
-  getNotes(db)
+  getNotes(db).then(function (doc) {
+    console.log("adicionado");
+    navigate("/")
+  })
   console.log(notitasArr);
 
   return (

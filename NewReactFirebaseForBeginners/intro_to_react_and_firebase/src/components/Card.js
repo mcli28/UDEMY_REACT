@@ -1,33 +1,29 @@
 import React from 'react'
-import {Link} from "@reach/router"
-//import {Link} from "react-router-dom"
+import {Link} from "react-router-dom"
 
 const Card = (props) => {
   return (
-    <div className="card">
+    <div className="card my-2">
         <header className="card-header">
             <p className="card-header-title">
                 {props.title}
             </p>
             <button className="card-header-icon" aria-label="more options">
-            <Link to={`post/${props.id}`}>Read full article</Link>
-            <span className="icon">
-                <i className="fas fa-angle-down" aria-hidden="true"></i>
-            </span>
+                <Link to={`/post/${props.id}`}>Read full article</Link>
+                <span className="icon">
+                    <i className="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
             </button>
         </header>
         <div className="card-content">
             <div className="content">
                 {props.content}
-                <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-                <br/>
-                <time >11:09 PM - 1 Jan 2016</time>
             </div>
         </div>
         <footer className="card-footer">
-            <a href="#" className="card-footer-item">Save</a>
-            <a href="#" className="card-footer-item">Edit</a>
-            <a href="#" className="card-footer-item">Delete</a>
+            <Link to="#" className="card-footer-item">Delete</Link>
+            <Link to={`/updatepost/${props.id}`} className="card-footer-item">Edit</Link>
+            <Link to={`/post/${props.id}`} className="card-footer-item">Read full article</Link>
         </footer>
     </div>
   )
