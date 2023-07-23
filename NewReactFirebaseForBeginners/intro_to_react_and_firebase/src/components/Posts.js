@@ -2,15 +2,19 @@ import React, {useState, useEffect}  from 'react'
 import PostSnippet from './PostSnippet'
 import PageHeader from './PageHeader'
 import _ from 'lodash'
-//import { BrowserRouter as Router, Switch, Route, Routes, useNavigate, Navigate, redirect, withRouter } from 'react-router-dom';
+
+
+import db from '../firebase'
+import { onAuthStateChanged } from "firebase/auth";
+//import { setDoc, getDocs, getDoc} from 'firebase/firestore/lite';
+import {onSnapshot, collectionGroup, collection, query, doc} from 'firebase/firestore';
 
 const Posts = (props) => {
-
-  /*const [posts, setPosts] = useState([])
+  console.log(props)
+  const [posts, setPosts] = useState([])
 
   useEffect(() => {
-    
-    async function getPosts(db) {
+    /*async function getPosts(db) {
       const postsCol = collection(db, 'posts');
       const postsSnapshot = await getDocs(postsCol);
       postsSnapshot.forEach((doc) => {
@@ -23,10 +27,32 @@ const Posts = (props) => {
         setPosts((posts) => [...posts, payload])    
       })
     }
-    getPosts(db)
+    getPosts(db)*/
+    
 
-  }, [])*/
-
+  
+    //const onsnapshot = onSnapshot(collection(db, 'users'),
+    const onsnapshot = onSnapshot(collection(db, 'posts'),
+      (posts) => {
+        console.log(posts)
+        const postsData = posts.docs.map(post => {
+          let data = post.data()
+          let {id} = post
+  
+          let payload = {
+            id,
+            ...data
+          }
+          return  payload
+        })
+        setPosts(postsData)    
+      }
+    )
+    //onsnapshot()
+  }, [])
+  
+  
+  
   return (
     <div className='column'>
         <div className='page_header_container'>
@@ -34,13 +60,14 @@ const Posts = (props) => {
         </div>
         <section className='section has-background-grey-lighter'>
             {
-              _.map(props.posts, (article, idx) => {
+              _.map(posts, (article, idx) => {
                 return (
                   <PostSnippet 
                     key={idx} 
                     id={article.id} 
                     title={_.capitalize(article.title)} 
                     content={article.content.substring(1, 1000)}
+                    user={props.user}
                   />
                 )
               })

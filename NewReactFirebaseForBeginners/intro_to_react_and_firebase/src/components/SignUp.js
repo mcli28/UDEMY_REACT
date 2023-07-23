@@ -14,25 +14,25 @@ const SignUp = (props) => {
     const onPasswordChange = (event) => setPassword(event.target.value)
 
     const onSignUp = () => {
-    console.log('sign up');
-    console.log(email, password);
+        console.log('sign up');
+        console.log(email, password);
 
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            setEmail((email) => '')
-            setPassword((password) =>'')
-            navigate("/posts")
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode);
-            console.log(errorMessage);
-        });
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                setEmail((email) => '')
+                setPassword((password) =>'')
+                navigate("/posts")
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode);
+                console.log(errorMessage);
+            });
 
-    setEmail('')
-    setPassword('')
+        setEmail('')
+        setPassword('')
 
     }
 

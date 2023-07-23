@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react'
 import PageHeader from './PageHeader'
 import db from '../firebase'
 import {useNavigate, useParams} from "react-router-dom";
-import {collection, doc, setDoc, getDoc} from 'firebase/firestore/lite';
+//import {collection, doc, setDoc, getDoc} from 'firebase/firestore/lite';
+import {doc, getDoc} from 'firebase/firestore';
 
 const UpdatePost = (props) => {
     
@@ -28,38 +29,12 @@ const UpdatePost = (props) => {
     getPost(db)
 
   },[])
-
-  /*const onTitleChange = (event) => setTitle(event.target.value)
-  const onContentChange = (event) => setContent(event.target.value)
-
-  const onUpdatePost = () => {
-    console.log("update")
-    async function editpost(db) {
-        const postref = doc(collection(db, "posts"))
-
-        await setDoc(postref, {
-            id: postref.id,
-            title: title,
-            content: content
-        });
-        
-      }
-      
-      editpost(db).then(function (doc) {
-        console.log("Editado");
-        setTitle('')
-        setContent('')
-        navigate("/posts")
-      })
-  }*/
-
- 
   
   const onUpdatePost = () => {
     console.log(props)
-    props.update(title, content)
+    console.log(id)
+    props.update(id, title, content)
     navigate("/posts")
-
   }
   
   

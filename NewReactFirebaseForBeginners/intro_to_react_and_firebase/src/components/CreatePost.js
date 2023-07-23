@@ -7,32 +7,6 @@ import {useNavigate} from "react-router-dom";
 const CreatePost = (props) => {
   
   let navigate = useNavigate()
-
-  /*const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
-
-  const onTitleChange = (event) => setTitle(event.target.value)
-  const onContentChange = (event) => setContent(event.target.value)
-
-  const onCreatePost = () => {
-    async function addpost(db) {
-        const postref = doc(collection(db, "posts"))
-
-        await setDoc(postref, {
-            id: postref.id,
-            title: title,
-            content: content
-        });
-        
-      }
-      
-      addpost(db).then(function (doc) {
-        console.log("adicionado");
-        setTitle('')
-        setContent('')
-        //navigate("/posts")
-      })
-  }*/
   
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
@@ -41,10 +15,8 @@ const CreatePost = (props) => {
   const onContentChange = (event) => setContent(event.target.value)
   
   const onCreatePost = () => {
-    console.log(props)
-    props.create(title, content)
+    props.create(props.user.uid, title, content)
     navigate("/posts")
-
   }
 
   return (

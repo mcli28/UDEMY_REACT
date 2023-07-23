@@ -8,6 +8,7 @@ const PostSnippet = (props) => {
         id={props.id}
         title={props.title} 
         content={props.content}
+        user={props.user}
       ></Card>
     </div>
   )

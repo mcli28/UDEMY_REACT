@@ -1,8 +1,22 @@
 import React from 'react'
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
+import db from '../firebase'
+//import {doc, deleteDoc} from 'firebase/firestore/lite';
+import {doc, deleteDoc} from 'firebase/firestore';
 
 const Card = (props) => {
-  return (
+    let navigate = useNavigate()
+    const onDeletePost = () => {
+        console.log(props.id)
+        const postRef = doc(db, 'posts', props.id);
+        deleteDoc(postRef).then((res) => {
+            console.log("eliminado")
+            navigate("/posts")
+        })
+    }
+
+    return (
+        
     <div className="card my-2">
         <header className="card-header">
             <p className="card-header-title">
@@ -20,11 +34,14 @@ const Card = (props) => {
                 {props.content}
             </div>
         </div>
-        <footer className="card-footer">
-            <Link to="#" className="card-footer-item">Delete</Link>
-            <Link to={`/updatepost/${props.id}`} className="card-footer-item">Edit</Link>
-            <Link to={`/post/${props.id}`} className="card-footer-item">Read full article</Link>
-        </footer>
+            {props.user &&
+                <footer className="card-footer">
+                    <a onClick={onDeletePost} className="card-footer-item">Delete</a>
+                    <Link to={`/updatepost/${props.id}`} className="card-footer-item">Edit</Link>
+                    <Link to={`/post/${props.id}`} className="card-footer-item">Read full article</Link>
+                </footer>
+            }
+            
     </div>
   )
 }

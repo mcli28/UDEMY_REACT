@@ -5,55 +5,43 @@ import {useNavigate, useParams} from "react-router-dom";
 import Posts from './components/Posts';
 import Post from './components/Post';
 import CreatePost from './components/CreatePost'
-import CreateForm from './components/CreateForm'
 import UpdatePost from './components/UpdatePost';
-import UpdateForm from './components/UpdateForm';
+import DeletePost from './components/DeletePost';
+
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn'
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Switch, Route, Routes} from 'react-router-dom';
-//import {Router, Link } from "@reach/router";
+
+import db from './firebase'
 import {auth} from './firebase'
 import { onAuthStateChanged } from "firebase/auth";
-import {collection, doc, setDoc, getDocs, getDoc} from 'firebase/firestore/lite';
-import db from './firebase'
+//import {collection, doc, setDoc, getDocs, getDoc} from 'firebase/firestore/lite';
+import {collection, doc, setDoc, updateDoc} from 'firebase/firestore';
 
 function App(props) {
-  //let navigate = useNavigate()
 
-  //const [user, setUser] = useState(false)
-  //onAuthStateChanged(auth, (user) => {
-  //  if (user) {
-  //    // User is signed in, see docs for a list of available properties
-  //    // https://firebase.google.com/docs/reference/js/firebase.User
-  //    const uid = user.uid;
-  //    console.log("user is signed in")
-  //    console.log(user)
-  //    setUser(user)
-  //  } else {
-  //    console.log("no user is signed in")
-  //  }
-  //})
-
- 
+  const [user, setUser] = useState(false)
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [posts, setPosts] = useState([])
 
-
-  const create_post = (title, content) => {
-    console.log(title)
-    console.log(content)
-
+  const create_post = (uid, title, content) => {
+    console.log(uid)
     async function addpost(db) {
+      let postuserRef = doc(collection(db, 'users'))
       const postref = doc(collection(db, "posts"))
 
-      await setDoc(postref, {
-          id: postref.id,
-          title: title,
-          content: content
-      });
       
+      await setDoc(postref, {
+        id: postref.id,
+        title: title,
+        content: content
+      });
+      await setDoc(postuserRef, {
+        uid: uid,
+        posts: postref
+      });
     }
     
     addpost(db).then((res) => {
@@ -61,13 +49,13 @@ function App(props) {
     })
   }
 
-  const update_post = (title, content) => {
-    console.log("update")
+  const update_post = (id, title, content) => {
+    console.log("update", id)
     async function editpost(db) {
-      const postref = doc(collection(db, "posts"))
+      const postref = doc(db, "posts", id)
 
-      await setDoc(postref, {
-          id: postref.id,
+      await updateDoc(postref, {
+          //id: postref.id,
           title: title,
           content: content
       });
@@ -78,40 +66,21 @@ function App(props) {
       console.log("Editado");
       setTitle('')
       setContent('')
-      //navigate("/posts")
     })
   }
 
   useEffect(() => {
-    
-
-    async function getPosts(db) {
-      const postsCol = collection(db, 'posts');
-      const postsSnapshot = await getDocs(postsCol);
-      postsSnapshot.forEach((doc) => {
-        let data = doc.data()
-        let {id} = doc
-        let payload = {
-          id,
-          ...data
-        }
-        setPosts((posts) => [...posts, payload])    
-      })
-    }
-    getPosts(db)
-
-    /*async function getPost(db) {
-      const postRef = doc(db, 'posts', id);
-      const postSnapshot = await getDoc(postRef)
-        .then(doc => {
-          console.log(doc);
-          let {content, title} = doc.data()
-          setTitle(title)
-          setContent(content)
-        })
-    }
-
-    getPost(db)*/
+  
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        console.log("user is signed in")
+        console.log(user)
+        setUser(user)
+      } else {
+        console.log("no user is signed in")
+      }
+    })
 
   }, [])
 
@@ -120,14 +89,15 @@ function App(props) {
       <div className='columns'>
         <div className='column'>
         <Router>
-          <Navbar/>
+          <Navbar user={user}/>
           <Routes>
-            <Route path='/' element={<Posts/>}/>
+            <Route path='/' element={<Posts user={user}/>}/>
             <Route path='signup' element={<SignUp/>}/>
             <Route path='signin' element={<SignIn/>}/>
-            <Route path="createpost" element={<CreatePost create={create_post} />}/>
-            <Route path="posts" element={<Posts posts={posts}/>}/>
+            <Route path="createpost" element={<CreatePost create={create_post} user={user}/>}/>
+            <Route path="posts" element={<Posts user={user}/>}/>
             <Route path="updatepost/:id" element={<UpdatePost title={title} content={content} update={update_post}/>}/>
+            <Route path="deletepost/:id" element={<DeletePost delete={update_post}/>}/>
             <Route path="post/:id" element={<Post/>}/>
           </Routes>
         </Router>
