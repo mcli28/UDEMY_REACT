@@ -6,9 +6,11 @@ import {doc, deleteDoc} from 'firebase/firestore';
 
 const Card = (props) => {
     let navigate = useNavigate()
+    const userlsuid = window.localStorage.getItem('useruid')
+
     const onDeletePost = () => {
         console.log(props.id)
-        const postRef = doc(db, 'posts', props.id);
+        const postRef = doc(db, 'users', userlsuid, 'postsusers', props.id);
         deleteDoc(postRef).then((res) => {
             console.log("eliminado")
             navigate("/posts")

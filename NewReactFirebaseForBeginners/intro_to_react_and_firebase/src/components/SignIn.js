@@ -1,27 +1,29 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import PageHeader from './PageHeader'
 import {auth} from '../firebase'
 import {useNavigate} from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import Posts from './Posts';
 
-const SignUp = (props) => {
+const SignIn = (props) => {
 
     let navigate = useNavigate()
+    
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const onEmailChange = (event) => setEmail(event.target.value)
     const onPasswordChange = (event) => setPassword(event.target.value)
-
     const onSignIn = () => {
-      console.log(email, password)
+      //props.signIn(email, password)
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          const user = userCredential.user;
-          console.log("use signed in")
+          const userC = userCredential.user;
+          console.log("user signed in")
+          console.log(userC)
+          window.localStorage.setItem('useruid', userC.uid)
+          window.localStorage.setItem('user', userC)
+          //setUser(userC)
           navigate("/posts")
-
-          //setEmail((email) => '')
-          //setPassword((password) =>'')
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -32,6 +34,10 @@ const SignUp = (props) => {
       
         setEmail('')
         setPassword('')
+    }
+    if (props.user != null) {
+      console.log("estoy logueado")
+      navigate("/posts")
     }
 
   return (
@@ -54,8 +60,7 @@ const SignUp = (props) => {
                         <input value={password} onChange={onPasswordChange} className='input' type="password" placeholder="Password" ></input>
                     </div>  
                 </div>
-                
-                <a className='mx-3'>Don't have an account, Sign Up</a>
+                <a href="#" className='mx-3'>Don't have an account, Sign Up</a>
                 <button className="button is-primary is-medium mx-3" onClick={onSignIn}>Sign In</button>
                 
             </div>
@@ -64,4 +69,4 @@ const SignUp = (props) => {
   )
 }
 
-export default SignUp
+export default SignIn

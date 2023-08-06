@@ -1,44 +1,27 @@
-import React, {useState, useEffect}  from 'react'
+import React, {useState, useEffect, useContext}  from 'react'
 import PostSnippet from './PostSnippet'
 import PageHeader from './PageHeader'
 import _ from 'lodash'
-
-
 import db from '../firebase'
-import { onAuthStateChanged } from "firebase/auth";
+
 //import { setDoc, getDocs, getDoc} from 'firebase/firestore/lite';
-import {onSnapshot, collectionGroup, collection, query, doc} from 'firebase/firestore';
+import {onSnapshot, collectionGroup, collection, query, doc, getDoc} from 'firebase/firestore';
 
 const Posts = (props) => {
-  console.log(props)
+
+  const userlsuid = window.localStorage.getItem('useruid')
+  const userls = window.localStorage.getItem('user')
+  //console.log("userlsuid",userlsuid)
   const [posts, setPosts] = useState([])
-
-  useEffect(() => {
-    /*async function getPosts(db) {
-      const postsCol = collection(db, 'posts');
-      const postsSnapshot = await getDocs(postsCol);
-      postsSnapshot.forEach((doc) => {
-        let data = doc.data()
-        let {id} = doc
-        let payload = {
-          id,
-          ...data
-        }
-        setPosts((posts) => [...posts, payload])    
-      })
-    }
-    getPosts(db)*/
-    
-
   
-    //const onsnapshot = onSnapshot(collection(db, 'users'),
-    const onsnapshot = onSnapshot(collection(db, 'posts'),
+  useEffect(() => {
+    
+    const onsnapshot = onSnapshot(collection(db, 'users', userlsuid, 'postsusers'),
       (posts) => {
-        console.log(posts)
         const postsData = posts.docs.map(post => {
           let data = post.data()
-          let {id} = post
-  
+
+          let {id} = post  
           let payload = {
             id,
             ...data
@@ -48,10 +31,11 @@ const Posts = (props) => {
         setPosts(postsData)    
       }
     )
-    //onsnapshot()
+    //return () => onsnapshot();
+    
   }, [])
   
-  
+  //console.log(posts)
   
   return (
     <div className='column'>
@@ -67,7 +51,7 @@ const Posts = (props) => {
                     id={article.id} 
                     title={_.capitalize(article.title)} 
                     content={article.content.substring(1, 1000)}
-                    user={props.user}
+                    user = {userls}
                   />
                 )
               })

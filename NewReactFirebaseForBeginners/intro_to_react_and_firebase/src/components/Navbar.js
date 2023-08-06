@@ -1,20 +1,24 @@
 import React, {useState} from 'react'
-import {Link, NavLink, useNavigate, Navigate} from 'react-router-dom'
+import {Link, NavLink, useNavigate} from 'react-router-dom'
 import {auth} from '../firebase'
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { extend } from 'lodash';
-
+import { BrowserRouter as Router, Switch, Route, Routes} from 'react-router-dom';
+import Posts from './Posts';
+import Post from './Post';
+import CreatePost from './CreatePost'
+import UpdatePost from './UpdatePost';
+import DeletePost from './DeletePost';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 const Navbar = (props) => {
-  console.log(props)
-  let navigate = useNavigate()
-  
-  const [user, setUser] = useState(false)
+  //let navigate = useNavigate()
+  //console.log(props)
 
   const onSignOut = () => {
     signOut(auth).then(() => {
       console.log("signing out")
-      setUser(false)
-      navigate("/signin")
+      //navigate("/signin")
     }).catch((error) => {
       // An error happened.
     });
@@ -25,7 +29,7 @@ const Navbar = (props) => {
       <div className="navbar-brand">
       {props.user 
         ?
-        <Link  to="/posts"    className="navbar-item">
+        <Link  to="/posts" className="navbar-item">
           {props.title ? props.title :<img src="https://bulma.io/images/bulma-logo.png" alt='' width="112" height="28"/>}
         </Link>
         :
@@ -53,39 +57,8 @@ const Navbar = (props) => {
         }
       </div>
     </nav>
+
   )
 }
-
-/*class Navbar extends Component{
-
-  constructor (){
-    super()
-    this.state = {
-      user2: false
-    }
-  }
-
-  render() {
-    return (
-      <nav className="navbar" role="navigation" aria-label="main navigation">
-        <div className="navbar-brand">
-          <Link  to="posts" className="navbar-item">
-            Posts
-          </Link>
-          <Link to='' role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </Link>
-        </div>
-        <div id="navbarBasicExample" className="navbar-menu">
-          <div className="navbar-end">
-            <Link to="createpost" className="navbar-item">create</Link>
-          </div>
-        </div>
-      </nav>
-    )
-  }
-}*/
 
 export default Navbar

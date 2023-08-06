@@ -3,9 +3,11 @@ import PageHeader from './PageHeader'
 //import {collection, doc, setDoc} from 'firebase/firestore/lite';
 //import db from '../firebase'
 import {useNavigate} from "react-router-dom";
+import { property } from 'lodash';
 
 const CreatePost = (props) => {
   
+  console.log(props)
   let navigate = useNavigate()
   
   const [title, setTitle] = useState('')

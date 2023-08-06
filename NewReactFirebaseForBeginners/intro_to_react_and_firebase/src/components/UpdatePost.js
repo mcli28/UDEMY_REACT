@@ -6,7 +6,8 @@ import {useNavigate, useParams} from "react-router-dom";
 import {doc, getDoc} from 'firebase/firestore';
 
 const UpdatePost = (props) => {
-    
+  const userlsuid = window.localStorage.getItem('useruid')
+
   let navigate = useNavigate()
   const {id} = useParams()
   const [title, setTitle] = useState('')
@@ -16,7 +17,7 @@ const UpdatePost = (props) => {
 
   useEffect(() => {
     async function getPost(db) {
-      const postRef = doc(db, 'posts', id);
+      const postRef = doc(db, 'users', userlsuid, 'postsusers', id);
       const postSnapshot = await getDoc(postRef)
         .then(doc => {
           console.log(doc);
@@ -31,7 +32,6 @@ const UpdatePost = (props) => {
   },[])
   
   const onUpdatePost = () => {
-    console.log(props)
     console.log(id)
     props.update(id, title, content)
     navigate("/posts")

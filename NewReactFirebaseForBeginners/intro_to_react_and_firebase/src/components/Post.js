@@ -1,17 +1,18 @@
 import React, {useState, useEffect} from 'react'
 import PageHeader from './PageHeader'
 import Card from './Card'
-import {getDoc, doc} from 'firebase/firestore/lite';
+import {getDoc, doc} from 'firebase/firestore';
 import db from '../firebase'
 import { useParams } from "react-router-dom";
           
 const Post = () => {
+  const userlsuid = window.localStorage.getItem('useruid')
   const {id} = useParams()
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   useEffect(() => {
     async function getPost(db) {
-      const postRef = doc(db, 'posts', id);
+      const postRef = doc(db, 'users', userlsuid, 'postsusers', id);
       const postSnapshot = await getDoc(postRef)
         .then(doc => {
           console.log(doc);
