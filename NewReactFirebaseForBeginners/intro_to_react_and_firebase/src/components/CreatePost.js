@@ -7,7 +7,6 @@ import { property } from 'lodash';
 
 const CreatePost = (props) => {
   
-  console.log(props)
   let navigate = useNavigate()
   
   const [title, setTitle] = useState('')

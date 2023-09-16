@@ -4,7 +4,6 @@ import PageHeader from './PageHeader'
 import _ from 'lodash'
 import db from '../firebase'
 
-//import { setDoc, getDocs, getDoc} from 'firebase/firestore/lite';
 import {onSnapshot, collectionGroup, collection, query, doc, getDoc} from 'firebase/firestore';
 
 const Posts = (props) => {
@@ -15,23 +14,26 @@ const Posts = (props) => {
   const [posts, setPosts] = useState([])
   
   useEffect(() => {
-    
-    const onsnapshot = onSnapshot(collection(db, 'users', userlsuid, 'postsusers'),
-      (posts) => {
-        const postsData = posts.docs.map(post => {
-          let data = post.data()
-
-          let {id} = post  
-          let payload = {
-            id,
-            ...data
-          }
-          return  payload
-        })
-        setPosts(postsData)    
-      }
-    )
-    //return () => onsnapshot();
+    if (userlsuid){
+      const onsnapshot = onSnapshot(collection(db, 'users', userlsuid, 'postsusers'),
+        (posts) => {
+          const postsData = posts.docs.map(post => {
+            let data = post.data()
+  
+            let {id} = post  
+            let payload = {
+              id,
+              ...data
+            }
+            return  payload
+          })
+          setPosts(postsData)    
+        }
+      )
+      return () => onsnapshot();
+    } else {
+      setPosts('')
+    }
     
   }, [])
   

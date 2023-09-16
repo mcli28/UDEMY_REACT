@@ -19,7 +19,9 @@ const SignUp = (props) => {
 
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                const user = userCredential.user;
+                const userC = userCredential.user;
+                window.localStorage.setItem('useruid', userC.uid)
+                window.localStorage.setItem('user', userC)
                 setEmail((email) => '')
                 setPassword((password) =>'')
                 navigate("/posts")

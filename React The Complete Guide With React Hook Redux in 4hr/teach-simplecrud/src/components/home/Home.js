@@ -1,35 +1,44 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Form from './Form'
-import {collection, getDocs} from 'firebase/firestore/lite';
-import {db} from '../../config/fbconfig'
+import {onSnapshot, collection} from 'firebase/firestore';
+import db from '../../config/fbconfig'
 import NotesList from '../notes/NotesList';
-import {useNavigate} from "react-router-dom";
-
-
+//import { useFirestoreConnect, useFirebaseConnect } from 'react-redux-firebase';
+//import { useSelector } from 'react-redux';
 const Home = () => {
-  let navigate = useNavigate()
-  let notitasArr = []; 
-  async function getNotes(db) {
-    const notesCol = collection(db, 'notes');
-    const noteSnapshot = await getDocs(notesCol);
-    noteSnapshot.forEach((doc) => {
-      notitasArr.push(doc.data())    
-    })
-
-    return notitasArr;
-  }
-  getNotes(db).then(function (doc) {
-    console.log("adicionado");
-    navigate("/")
-  })
-  console.log(notitasArr);
+  
+  const [posts, setPosts] = useState([])
+  useEffect(() => {
+    //useFirestoreConnect([{collection:'notes', orderBy:['created', 'desc']}])
+    //useFirebaseConnect('notes')
+    //const notes = useSelector((state) => state.firestore.ordered.notes)
+      const onsnapshot = onSnapshot(collection(db, 'notes'),
+        (posts) => {
+          const postsData = posts.docs.map(post => {
+            let data = post.data()
+  
+            let {id} = post  
+            let payload = {
+              id,
+              ...data
+            }
+            return  payload
+          })
+          setPosts(postsData)    
+        }
+      )
+      return () => onsnapshot();
+    }, [])
+    
 
   return (
     <div className='container'>
         <div className='columns'>
-            <div className='column'><Form/></div>
+            <div className='column is-half'>
+              <Form/>
+            </div>
             <div className='column'>
-              <NotesList notes={notitasArr} />
+              <NotesList notes={posts} />
             </div>
         </div>
     </div>

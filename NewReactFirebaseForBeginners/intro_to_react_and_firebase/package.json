@@ -2,6 +2,7 @@
   "name": "intro_to_react_and_firebase",
   "version": "0.1.0",
   "private": true,
+  "main": "index.js",
   "dependencies": {
     "@reach/router": "^1.3.4",
     "@testing-library/jest-dom": "^5.16.5",

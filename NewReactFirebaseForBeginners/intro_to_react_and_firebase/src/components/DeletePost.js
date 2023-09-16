@@ -9,16 +9,6 @@ const DeletePost = (props) => {
     
   let navigate = useNavigate()
   const {id} = useParams()
-
-  /*useEffect(() => {
-    async function getPost(db) {
-      const postRef = doc(db, 'posts', id);
-      const postSnapshot = await deleteDoc(postRef)
-    }
-    getPost(db).then((res) => {
-      console.log("eliminado")
-    })
-  },[])*/
   
   const onDeletePost = () => {
     const postRef = doc(db, 'posts', id);

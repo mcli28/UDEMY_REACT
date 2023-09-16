@@ -11,16 +11,16 @@ import thunk from 'redux-thunk'
 import {ReactReduxFirebaseProvider, getFirebase} from 'react-redux-firebase'
 import {createFirestoreInstance, getFirestore, reduxFirestore} from 'redux-firestore'
 import firebase from "firebase/compat/app"
-import fbconfig from './config/fbconfig'
+import db from './config/fbconfig'
 
 const store = createStore(rootReducer, compose(
   applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),
-  reduxFirestore(fbconfig)
+  reduxFirestore(db)
 ))
 
 const rrfProps = {
   firebase,
-  config: fbconfig,
+  config: db,
   dispatch: store.dispatch,
   createFirestoreInstance
 }

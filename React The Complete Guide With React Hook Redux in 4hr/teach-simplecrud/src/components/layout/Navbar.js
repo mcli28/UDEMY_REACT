@@ -24,6 +24,16 @@ const Navbar = () => {
       </div>
     </nav>
   )
+  /*return (
+    <nav className="level is-mobile">
+      <NavLink to="/projects" className="level-item has-text-centered">Projects</NavLink>
+      <NavLink to="/reports" className="level-item has-text-centered">Reports</NavLink>
+      <Link to="/" className="level-item has-text-centered">
+        liNote
+      </Link>
+      <NavLink to="/favorites" className="level-item has-text-centered">Favorites</NavLink>
+    </nav>
+  )*/
 }
 
 export default Navbar

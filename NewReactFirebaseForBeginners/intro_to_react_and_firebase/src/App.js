@@ -37,13 +37,6 @@ function App(props) {
 
       console.log(userCollRef)
       const userColRef = doc(collection(db, 'users', uid, 'postsusers'))
-      /*const userSnapshot = await getDoc(nuevaColeccionRef)
-        .then(doc => {
-          console.log(doc);
-          //let {content, title} = doc.data()
-        })
-      console.log(userSnapshot)*/
-
       
       await setDoc(postref, {
         id: postref.id,
