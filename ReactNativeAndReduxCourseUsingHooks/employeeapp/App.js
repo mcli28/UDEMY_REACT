@@ -15,19 +15,21 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <View style={styles.container}>
-      <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Create" component={CreateEmployee} />
           <Stack.Screen name="Profile" component={Profile} />
         </Stack.Navigator>
-      </NavigationContainer>
     </View>
   );
 }
 
 export default () => {
-
+  return (
+    <NavigationContainer>
+      <App/>
+    </NavigationContainer>
+  )
 }
 
 const styles = StyleSheet.create({
